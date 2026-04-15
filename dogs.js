@@ -373,7 +373,7 @@ const DOG_PRODUCTS = [
   },
   {
     id: 27,
-    name: "Amazon Basics training pads – 100 count XL",
+    name: "Training pads XL - 100 count",
     fitment: "Puppies and senior dogs",
     category: "Training",
     source: "eBay Partner Network",
@@ -774,6 +774,70 @@ function renderDogStats(products, networks, networkMap) {
   if (approvedCount) approvedCount.textContent = approved;
 }
 
+async function renderDogContentFeed() {
+  const container = document.querySelector("#dog-content-feed");
+  if (!container) return;
+
+  try {
+    const response = await fetch("content_feed.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("feed unavailable");
+    const items = await response.json();
+
+    if (!Array.isArray(items) || !items.length) {
+      container.innerHTML = '<div class="empty-state"><p>No guides published yet.</p></div>';
+      return;
+    }
+
+    container.innerHTML = items.slice(0, 6).map((item) => `
+      <article class="part-card">
+        <header>
+          <div>
+            <span class="pill">Guide</span>
+            <h3>${item.title}</h3>
+          </div>
+          <span class="meta-chip">${item.published}</span>
+        </header>
+        <p>${item.summary || "Auto-published buying guide."}</p>
+        <a class="button button-dogs-primary" href="${item.url}">Read guide</a>
+      </article>
+    `).join("");
+  } catch {
+    container.innerHTML = '<div class="empty-state"><p>Guide feed not available yet.</p></div>';
+  }
+}
+
+async function renderPetVideosPreview() {
+  const container = document.querySelector("#pet-videos-preview");
+  if (!container) return;
+
+  try {
+    const response = await fetch("pet_videos_feed.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("videos unavailable");
+    const items = await response.json();
+
+    if (!Array.isArray(items) || !items.length) {
+      container.innerHTML = '<div class="empty-state"><p>No pet videos picked yet.</p></div>';
+      return;
+    }
+
+    container.innerHTML = items.slice(0, 3).map((item) => `
+      <article class="part-card">
+        <header>
+          <div>
+            <span class="pill">${item.category || "Trending"}</span>
+            <h3>${item.title}</h3>
+          </div>
+          <span class="meta-chip">${item.published}</span>
+        </header>
+        <p>${item.summary || "Trending pet videos from public platforms."}</p>
+        <a class="button button-dogs-primary" href="${item.watchUrl}" target="_blank" rel="noreferrer">Watch clip list</a>
+      </article>
+    `).join("");
+  } catch {
+    container.innerHTML = '<div class="empty-state"><p>Pet video preview unavailable.</p></div>';
+  }
+}
+
 // ── Main ──
 (function init() {
   const networks = loadDogNetworks();
@@ -839,4 +903,6 @@ function renderDogStats(products, networks, networkMap) {
   // Initial render
   renderDogAdminVisibility();
   rerender();
+  renderDogContentFeed();
+  renderPetVideosPreview();
 })();
