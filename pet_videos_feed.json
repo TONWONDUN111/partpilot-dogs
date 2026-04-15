@@ -1,5 +1,12 @@
 [
   {
+    "title": "Dog Training Transformation Videos",
+    "category": "Dog",
+    "published": "2026-04-15",
+    "summary": "Fresh curated picks from trending pet clips.",
+    "watchUrl": "https://www.youtube.com/results?search_query=dog+training+transformation+videos"
+  },
+  {
     "title": "Senior Dog Recovery Stories",
     "category": "Senior",
     "published": "2026-04-15",
@@ -19,12 +26,5 @@
     "published": "2026-04-15",
     "summary": "Emotional rescue and recovery stories from around the web.",
     "watchUrl": "https://www.youtube.com/results?search_query=sad+pet+rescue+stories"
-  },
-  {
-    "title": "Dog Training Transformation Videos",
-    "category": "Training",
-    "published": "2026-04-15",
-    "summary": "Before-and-after training clips with practical behavior tips.",
-    "watchUrl": "https://www.youtube.com/results?search_query=dog+training+transformation+videos"
   }
 ]
