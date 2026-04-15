@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dog Shop – PartPilot Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dogs.css">
+</head>
+<body data-page="dogs">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">PP</span>
+        <span>
+          <strong>PartPilot Market</strong>
+          <small>Global affiliate storefront</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">Car Parts</a>
+        <a class="nav-link active" href="dogs.html">Dog Shop</a>
+        <a class="nav-link" href="repair-help.html">Repair Help</a>
+        <a class="nav-link" href="about.html">About</a>
+      </nav>
+    </header>
+
+    <div class="disclosure-banner">
+      <p>As an eBay Partner Network affiliate, we earn commissions on qualifying purchases at no extra cost to you. <a href="privacy.html">Privacy Policy</a> &middot; <a href="about.html">About</a></p>
+    </div>
+
+    <main>
+      <section class="hero hero-dogs">
+        <div>
+          <p class="eyebrow">Top sellers powered by eBay Partner Network</p>
+          <h1>Everything your dog needs, from one storefront.</h1>
+          <p class="hero-copy">Toys, food, clothes, beds, grooming, training — we surface the top-rated and best-selling products on eBay so your dog gets the best and you earn on every click.</p>
+          <div class="hero-actions">
+            <a class="button button-dogs-primary" href="#dog-catalog">Shop top sellers</a>
+            <a class="button button-secondary" href="#ebay-store-section">See eBay Store setup</a>
+          </div>
+        </div>
+        <aside class="hero-panel dogs-hero-panel">
+          <h2>Why this setup works</h2>
+          <ul class="check-list">
+            
+            <li>eBay Partner Network brings unique, rare, and discount-priced pet items</li>
+            <li>eBay Store gives you a branded storefront URL and lower fees if you list your own items</li>
+            <li>30+ current top-selling products across every category dogs need</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="panel stats-panel" id="dog-stats">
+        <div>
+          <span class="stat-label">Products listed</span>
+          <strong id="dog-listing-count">0</strong>
+        </div>
+        <div>
+          <span class="stat-label">Categories</span>
+          <strong id="dog-category-count">0</strong>
+        </div>
+        <div>
+          <span class="stat-label">Top est. payout</span>
+          <strong id="dog-top-payout">$0.00</strong>
+        </div>
+        <div>
+          <span class="stat-label">Approved networks</span>
+          <strong id="dog-approved-count">0</strong>
+        </div>
+      </section>
+
+      <!-- eBay Store callout -->
+      <section class="panel ebay-store-panel" id="ebay-store-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">eBay Store opportunity</p>
+            <h2>Set up your own branded eBay dog shop</h2>
+          </div>
+          <a class="button button-dogs-primary" href="https://www.ebay.com/sellercenter/stores" target="_blank" rel="noreferrer">Open eBay Store setup</a>
+        </div>
+        <div class="ebay-store-grid">
+          <div>
+            <p>eBay lets you open a full branded storefront under your own name — it shows up at <strong>ebay.com/str/yourname</strong>. You can list your own dog products, curate top-selling items, and drive traffic from your affiliate links right into your own listings. If a buyer clicks your affiliate link <em>and</em> buys from your own store listings, you keep the full sale price instead of just a commission.</p>
+            <p>Use the affiliate angle to build audience first, then layer your own store listings on top for higher margins. Both revenue streams work together.</p>
+          </div>
+          <div class="ebay-tiers">
+            <h3>eBay Store subscription tiers</h3>
+            <div class="tier-cards">
+              <div class="tier-card">
+                <strong>Starter</strong>
+                <span class="tier-price">$4.95/mo</span>
+                <ul>
+                  <li>Branded storefront URL</li>
+                  <li>250 free Fixed Price listings/mo</li>
+                  <li>Good for getting started</li>
+                </ul>
+                <a class="text-link" href="https://www.ebay.com/sellercenter/stores" target="_blank" rel="noreferrer">Get started</a>
+              </div>
+              <div class="tier-card tier-recommended">
+                <span class="tier-badge">Best value</span>
+                <strong>Basic</strong>
+                <span class="tier-price">$21.95/mo</span>
+                <ul>
+                  <li>1,000 free Fixed Price listings/mo</li>
+                  <li>Lower final value fees</li>
+                  <li>Promotions Manager access</li>
+                </ul>
+                <a class="text-link" href="https://www.ebay.com/sellercenter/stores" target="_blank" rel="noreferrer">Get started</a>
+              </div>
+              <div class="tier-card">
+                <strong>Premium</strong>
+                <span class="tier-price">$59.95/mo</span>
+                <ul>
+                  <li>10,000 free Fixed Price listings/mo</li>
+                  <li>Lowest final value fee rates</li>
+                  <li>Full Seller Hub analytics</li>
+                </ul>
+                <a class="text-link" href="https://www.ebay.com/sellercenter/stores" target="_blank" rel="noreferrer">Get started</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Private affiliate admin -->
+      <section class="panel private-panel">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Private mode</p>
+            <h2>Dog shop affiliate controls</h2>
+          </div>
+          <button id="dog-admin-toggle" class="button button-secondary" type="button">Open private affiliate panel</button>
+        </div>
+        <p class="section-copy">Your affiliate URLs and approval status for dog shop networks are stored only in this browser. Hidden from the public page until you open admin mode.</p>
+      </section>
+
+      <section class="panel approval-panel admin-only-dogs" hidden>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Approval center – Dog networks</p>
+            <h2>Apply, approve, and wire your affiliate links</h2>
+          </div>
+        </div>
+        <div class="approval-grid">
+          <div>
+            <p class="section-copy">Apply to each network, paste your tracked affiliate or storefront URL, and mark approval. Listing buttons switch from "Apply now" to "Buy through affiliate link" automatically.</p>
+            <ul class="stack-list">
+              
+              <li>eBay Partner Network covers new and used — great for branded collars, vintage toys, and bulk food at discount.</li>
+              <li>Chewy Affiliate Program pays 4–6% on a huge catalog of food and vet products.</li>
+              <li>PetSmart Affiliate Program (Commission Junction) pays 2–4% with a 30-day cookie window.</li>
+            </ul>
+          </div>
+          <div class="approval-summary" id="dog-approval-summary"></div>
+        </div>
+      </section>
+
+      <section class="layout-grid">
+        <section class="panel controls-panel" id="dog-catalog">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Dog shop catalog</p>
+              <h2>Filter top sellers</h2>
+            </div>
+          </div>
+          <div class="control-grid">
+            <label>
+              Search product
+              <input id="dog-search" type="search" placeholder="Kong toy, dry food, jacket...">
+            </label>
+            <label>
+              Source
+              <select id="dog-source-filter"></select>
+            </label>
+            <label>
+              Category
+              <select id="dog-category-filter"></select>
+            </label>
+            <label>
+              Sort by
+              <select id="dog-sort-filter">
+                <option value="featured">Best sellers first</option>
+                <option value="price-asc">Lowest price</option>
+                <option value="price-desc">Highest price</option>
+                <option value="payout-desc">Highest payout</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <aside class="panel commission-panel admin-only-dogs" hidden>
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">Commission and links</p>
+              <h2>Dog network rates</h2>
+            </div>
+          </div>
+          <p class="section-copy">Set rates, approval, and destination URLs per network. Updates instantly.</p>
+          <div id="dog-network-editor" class="network-editor"></div>
+        </aside>
+      </section>
+
+      <section class="panel network-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Affiliate stack – pets</p>
+            <h2>Dog shop partner networks</h2>
+          </div>
+        </div>
+        <div id="dog-network-cards" class="network-grid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Top sellers – live listings</p>
+            <h2>Best dog products right now</h2>
+          </div>
+        </div>
+        <div id="dog-parts-grid" class="parts-grid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Social promo kit</p>
+            <h2>Promote dog styles + top sellers</h2>
+          </div>
+        </div>
+        <ul class="stack-list">
+          <li>Instagram Reel idea: "Top 5 stylish dog fits this week: coats, boots, shades, jewelry."</li>
+          <li>TikTok idea: "Dog drip check: click our shop link for each look and toy."</li>
+          <li>Facebook post idea: "We pulled today’s best dog fashion + food picks in one place."</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="button button-dogs-primary" target="_blank" rel="noreferrer" href="https://www.instagram.com/">Open Instagram</a>
+          <a class="button button-dogs-primary" target="_blank" rel="noreferrer" href="https://www.tiktok.com/">Open TikTok</a>
+          <a class="button button-dogs-primary" target="_blank" rel="noreferrer" href="https://www.facebook.com/">Open Facebook</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>&copy; 2026 PartPilot Market. All rights reserved.</span>
+        <nav class="footer-nav">
+          <a href="about.html">About</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="dogs.html">Dog Shop</a>
+          <a href="index.html">Car Parts</a>
+        </nav>
+        <p class="fine-print footer-disclosure">As an eBay Partner Network member and affiliate, we earn commissions on qualifying purchases. Product prices and availability are subject to change.</p>
+      </div>
+    </footer>
+  </div>
+  <script src="dogs.js"></script>
+</body>
+</html>

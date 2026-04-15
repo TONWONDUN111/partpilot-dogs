@@ -1,0 +1,842 @@
+const DOG_NETWORKS_KEY = "partpilot-dog-networks";
+const DOG_ADMIN_KEY = "partpilot-dog-admin";
+
+const DEFAULT_DOG_NETWORKS = [
+  {
+    id: "ebay",
+    name: "eBay Partner Network",
+    rate: 0.05,
+    region: "Global",
+    note: "Covers new, used, and clearance pet items. Pairs with your eBay Store for full control over listings and commissions.",
+    signupUrl: "https://partnernetwork.ebay.com/",
+    catalogUrl: "https://www.ebay.com/b/Pet-Supplies/1281/bn_2307059",
+    affiliateUrl: "",
+    approval: "approved",
+    status: "Approved",
+  },
+  {
+    id: "chewy",
+    name: "Chewy Affiliate Program",
+    rate: 0.06,
+    region: "US / Canada",
+    note: "Dedicated pet retailer. High conversion rate on food and medication. 15-day cookie window.",
+    signupUrl: "https://www.chewy.com/app/content/affiliates",
+    catalogUrl: "https://www.chewy.com/b/dog-315",
+    affiliateUrl: "",
+    approval: "not-applied",
+    status: "Need approval",
+  },
+  {
+    id: "petsmart",
+    name: "PetSmart Affiliate (CJ)",
+    rate: 0.04,
+    region: "US",
+    note: "Commission Junction program. 30-day cookie. Good for apparel, beds, and grooming tools.",
+    signupUrl: "https://www.cj.com/advertiser/petsmart",
+    catalogUrl: "https://www.petsmart.com/dog/",
+    affiliateUrl: "",
+    approval: "not-applied",
+    status: "Need approval",
+  },
+  {
+    id: "petco",
+    name: "Petco Affiliate (Rakuten)",
+    rate: 0.03,
+    region: "US",
+    note: "Rakuten Advertising program. Strong brand recognition. Carries vet-diet foods and premium accessories.",
+    signupUrl: "https://rakutenadvertising.com/affiliate-programs/",
+    catalogUrl: "https://www.petco.com/shop/en/petcostore/category/dog",
+    affiliateUrl: "",
+    approval: "not-applied",
+    status: "Need approval",
+  },
+];
+
+const DOG_PRODUCTS = [
+  // TOYS
+  {
+    id: 1,
+    name: "KONG Classic – Large",
+    fitment: "All breeds, heavy chewers",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 16.49,
+    featured: 1,
+    link: "#",
+    badge: "#1 best seller",
+  },
+  {
+    id: 2,
+    name: "Outward Hound Puzzle Feeder – Intermediate",
+    fitment: "All dogs, mental stimulation",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 14.99,
+    featured: 2,
+    link: "#",
+    badge: "Vet recommended",
+  },
+  {
+    id: 3,
+    name: "Chuckit! Ultra Ball – 2-pack (Large)",
+    fitment: "Medium to large dogs",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 12.79,
+    featured: 3,
+    link: "#",
+    badge: "Fetch favorite",
+  },
+  {
+    id: 4,
+    name: "Tug-of-war rope toy set – 6-pack",
+    fitment: "All sizes",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 18.95,
+    featured: 4,
+    link: "#",
+    badge: "Bundle deal",
+  },
+  {
+    id: 5,
+    name: "Snuffle mat – slow feeding + enrichment",
+    fitment: "All dogs",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 22.99,
+    featured: 5,
+    link: "#",
+    badge: "Anxiety relief",
+  },
+  {
+    id: 6,
+    name: "Squeaky plush crinkle fox – 3-pack",
+    fitment: "Small to medium dogs",
+    category: "Toys",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 11.49,
+    featured: 6,
+    link: "#",
+    badge: "Top gifted",
+  },
+  // FOOD & TREATS
+  {
+    id: 7,
+    name: "Blue Buffalo Life Protection – 30 lb",
+    fitment: "Adult dogs, all breeds",
+    category: "Food",
+    source: "Chewy Affiliate Program",
+    networkId: "chewy",
+    price: 69.99,
+    featured: 7,
+    link: "#",
+    badge: "Top brand",
+  },
+  {
+    id: 8,
+    name: "Royal Canin Breed Health – Labrador 30 lb",
+    fitment: "Labrador Retrievers adult",
+    category: "Food",
+    source: "Chewy Affiliate Program",
+    networkId: "chewy",
+    price: 84.99,
+    featured: 8,
+    link: "#",
+    badge: "Breed specific",
+  },
+  {
+    id: 9,
+    name: "Hill's Science Diet – Small Paws 15.5 lb",
+    fitment: "Small breeds under 25 lb",
+    category: "Food",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 54.99,
+    featured: 9,
+    link: "#",
+    badge: "Vet approved",
+  },
+  {
+    id: 10,
+    name: "Zuke's Mini Naturals training treats – 16 oz",
+    fitment: "All dogs, training use",
+    category: "Food",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 13.99,
+    featured: 10,
+    link: "#",
+    badge: "High volume",
+  },
+  {
+    id: 11,
+    name: "Milk-Bone Original biscuits – 7 lb",
+    fitment: "All adult dogs",
+    category: "Food",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 11.99,
+    featured: 11,
+    link: "#",
+    badge: "American classic",
+  },
+  {
+    id: 12,
+    name: "Wellness CORE grain-free chicken 26 lb",
+    fitment: "Active adult dogs",
+    category: "Food",
+    source: "Chewy Affiliate Program",
+    networkId: "chewy",
+    price: 89.99,
+    featured: 12,
+    link: "#",
+    badge: "Grain free",
+  },
+  // CLOTHES & APPAREL
+  {
+    id: 13,
+    name: "Ruffwear Overcoat Fuse – winter jacket + harness",
+    fitment: "Medium dogs (18–27 in girth)",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 149.95,
+    featured: 13,
+    link: "#",
+    badge: "Premium pick",
+  },
+  {
+    id: 14,
+    name: "Hurtta rain blocker jacket – waterproof",
+    fitment: "Large dogs",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 74.0,
+    featured: 14,
+    link: "#",
+    badge: "Nordic brand",
+  },
+  {
+    id: 15,
+    name: "Canada Pooch puffer vest",
+    fitment: "Small breeds",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 44.99,
+    featured: 15,
+    link: "#",
+    badge: "Best cold weather",
+  },
+  {
+    id: 16,
+    name: "Pawz rubber waterproof dog boots – 12-pack",
+    fitment: "All sizes (XS–XL)",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 18.99,
+    featured: 16,
+    link: "#",
+    badge: "Disposable",
+  },
+  {
+    id: 17,
+    name: "Pet holiday sweater – ugly Christmas knit",
+    fitment: "Small to medium dogs",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 12.5,
+    featured: 17,
+    link: "#",
+    badge: "Seasonal top seller",
+  },
+  // BEDS & REST
+  {
+    id: 18,
+    name: "Furhaven orthopedic sofa bed – XL",
+    fitment: "Large dogs up to 95 lb",
+    category: "Beds",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 59.99,
+    featured: 18,
+    link: "#",
+    badge: "Top rated beds",
+  },
+  {
+    id: 19,
+    name: "K9 Ballistics tough elevated dog cot – Large",
+    fitment: "Dogs 50–80 lb",
+    category: "Beds",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 119.95,
+    featured: 19,
+    link: "#",
+    badge: "Chew proof",
+  },
+  {
+    id: 20,
+    name: "Self-cooling gel mat – no electricity needed",
+    fitment: "All dogs, summer use",
+    category: "Beds",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 34.99,
+    featured: 20,
+    link: "#",
+    badge: "Summer essential",
+  },
+  // GROOMING
+  {
+    id: 21,
+    name: "FURminator deshedding tool – Large short hair",
+    fitment: "Large dogs, short double coat",
+    category: "Grooming",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 38.99,
+    featured: 21,
+    link: "#",
+    badge: "Best seller",
+  },
+  {
+    id: 22,
+    name: "Wahl dog clippers – pet pro cordless",
+    fitment: "All coat types",
+    category: "Grooming",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 49.99,
+    featured: 22,
+    link: "#",
+    badge: "Pro grade",
+  },
+  {
+    id: 23,
+    name: "Burt's Bees tearless puppy shampoo – 16 oz",
+    fitment: "Puppies and sensitive skin",
+    category: "Grooming",
+    source: "Chewy Affiliate Program",
+    networkId: "chewy",
+    price: 10.49,
+    featured: 23,
+    link: "#",
+    badge: "Natural formula",
+  },
+  {
+    id: 24,
+    name: "Dremel 7300-PT dog nail grinder",
+    fitment: "All breeds",
+    category: "Grooming",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 29.97,
+    featured: 24,
+    link: "#",
+    badge: "Vet tool",
+  },
+  // TRAINING & GEAR
+  {
+    id: 25,
+    name: "Ruffwear Front Range harness – no-pull",
+    fitment: "Medium dogs",
+    category: "Training",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 54.95,
+    featured: 25,
+    link: "#",
+    badge: "Trail & everyday",
+  },
+  {
+    id: 26,
+    name: "PetSafe Easy Walk harness – front clip",
+    fitment: "All sizes",
+    category: "Training",
+    source: "PetSmart Affiliate (CJ)",
+    networkId: "petsmart",
+    price: 27.99,
+    featured: 26,
+    link: "#",
+    badge: "Anti-pull",
+  },
+  {
+    id: 27,
+    name: "Amazon Basics training pads – 100 count XL",
+    fitment: "Puppies and senior dogs",
+    category: "Training",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 34.99,
+    featured: 27,
+    link: "#",
+    badge: "Bulk value",
+  },
+  {
+    id: 28,
+    name: "SportDOG SD-425 remote trainer – 500 yd",
+    fitment: "All breeds, outdoor training",
+    category: "Training",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 159.95,
+    featured: 28,
+    link: "#",
+    badge: "High ticket",
+  },
+  // HEALTH & SUPPLEMENTS
+  {
+    id: 29,
+    name: "Frontline Plus flea & tick – 6-month Large",
+    fitment: "Dogs 45–88 lb",
+    category: "Health",
+    source: "Chewy Affiliate Program",
+    networkId: "chewy",
+    price: 59.99,
+    featured: 29,
+    link: "#",
+    badge: "Vet recommended",
+  },
+  {
+    id: 30,
+    name: "Cosequin joint supplement – 250 chews",
+    fitment: "Adult and senior dogs",
+    category: "Health",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 47.99,
+    featured: 30,
+    link: "#",
+    badge: "#1 vet brand",
+  },
+  {
+    id: 31,
+    name: "Zesty Paws omega-3 fish oil – 180 softgels",
+    fitment: "All dogs, coat and joint support",
+    category: "Health",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 29.99,
+    featured: 31,
+    link: "#",
+    badge: "Coat health",
+  },
+  {
+    id: 32,
+    name: "Adaptil calming collar – 30-day Large",
+    fitment: "Anxious dogs, large breeds",
+    category: "Health",
+    source: "Petco Affiliate (Rakuten)",
+    networkId: "petco",
+    price: 24.99,
+    featured: 32,
+    link: "#",
+    badge: "Anxiety relief",
+  },
+  {
+    id: 33,
+    name: "Dog goggles UV protection (Rex Specs style)",
+    fitment: "Medium and large breeds",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 32.99,
+    featured: 33,
+    link: "#",
+    badge: "Stylish pick",
+  },
+  {
+    id: 34,
+    name: "Designer rhinestone dog necklace + charm",
+    fitment: "Small to medium dogs",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 19.95,
+    featured: 34,
+    link: "#",
+    badge: "Jewelry trend",
+  },
+  {
+    id: 35,
+    name: "Waterproof winter dog boots with anti-slip sole",
+    fitment: "All sizes (S-XL)",
+    category: "Apparel",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 27.99,
+    featured: 35,
+    link: "#",
+    badge: "Street style",
+  },
+  {
+    id: 36,
+    name: "Blue Buffalo Wilderness grain-free wet food variety pack",
+    fitment: "Adult dogs all breeds",
+    category: "Food",
+    source: "eBay Partner Network",
+    networkId: "ebay",
+    price: 42.0,
+    featured: 36,
+    link: "#",
+    badge: "Top food seller",
+  },
+];
+
+// ── Shared utilities ──
+function dogCurrency(value) {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+}
+
+function approvalLabel(value) {
+  if (value === "approved") return "Approved";
+  if (value === "pending") return "Pending";
+  return "Not applied";
+}
+
+function statusClass(value) {
+  if (value === "approved") return "status-approved";
+  if (value === "pending") return "status-pending";
+  return "status-not-applied";
+}
+
+// ── Storage ──
+function loadDogNetworks() {
+  const saved = localStorage.getItem(DOG_NETWORKS_KEY);
+  if (!saved) return DEFAULT_DOG_NETWORKS;
+  try {
+    const parsed = JSON.parse(saved);
+    return DEFAULT_DOG_NETWORKS.map((n) => {
+      const match = parsed.find((item) => item.id === n.id);
+      return match ? { ...n, ...match } : n;
+    });
+  } catch {
+    return DEFAULT_DOG_NETWORKS;
+  }
+}
+
+function saveDogNetworks(networks) {
+  localStorage.setItem(DOG_NETWORKS_KEY, JSON.stringify(networks));
+}
+
+function dogAdminEnabled() {
+  return sessionStorage.getItem(DOG_ADMIN_KEY) === "true";
+}
+
+function setDogAdmin(value) {
+  sessionStorage.setItem(DOG_ADMIN_KEY, value ? "true" : "false");
+}
+
+function getDogNetworkMap(networks) {
+  return Object.fromEntries(networks.map((n) => [n.id, n]));
+}
+
+function dogDestUrl(product, networkMap) {
+  const n = networkMap[product.networkId];
+  if (!n) return "#";
+  if (product.link && product.link !== "#") return product.link;
+
+  const query = encodeURIComponent(`${product.name} ${product.fitment}`);
+
+  if (n.affiliateUrl) {
+    if (n.affiliateUrl.includes("{query}")) {
+      return n.affiliateUrl.replace("{query}", query);
+    }
+    return n.affiliateUrl;
+  }
+
+  if (product.networkId === "ebay") {
+    return `https://www.ebay.com/sch/i.html?_nkw=${query}`;
+  }
+  if (product.networkId === "chewy") {
+    return `https://www.chewy.com/s?query=${query}`;
+  }
+  if (product.networkId === "petsmart") {
+    return `https://www.petsmart.com/search/?q=${query}`;
+  }
+  if (product.networkId === "petco") {
+    return `https://www.petco.com/shop/en/petcostore/search?query=${query}`;
+  }
+
+  return n.catalogUrl || n.signupUrl || "#";
+}
+
+function dogCtaLabel(product, networkMap) {
+  const n = networkMap[product.networkId];
+  if (!n) return "Open link";
+  if (n.approval === "approved" && n.affiliateUrl) return "Buy through affiliate link";
+  if (n.approval === "approved") return "View matching product";
+  if (n.signupUrl) return "Apply now";
+  return "Open catalog";
+}
+
+function dogPayout(product, networkMap) {
+  const rate = networkMap[product.networkId]?.rate || 0;
+  return product.price * rate;
+}
+
+// ── Rendering ──
+function renderDogAdminVisibility() {
+  const enabled = dogAdminEnabled();
+  const toggle = document.querySelector("#dog-admin-toggle");
+  document.querySelectorAll(".admin-only-dogs").forEach((el) => {
+    if (enabled) {
+      el.removeAttribute("hidden");
+    } else {
+      el.setAttribute("hidden", "");
+    }
+  });
+  if (toggle) {
+    toggle.textContent = enabled ? "Hide affiliate panel" : "Open private affiliate panel";
+    toggle.classList.toggle("button-active", enabled);
+  }
+}
+
+function renderDogNetworkEditor(networks, rerender) {
+  const container = document.querySelector("#dog-network-editor");
+  if (!container) return;
+  container.innerHTML = "";
+  networks.forEach((n) => {
+    const row = document.createElement("div");
+    row.className = "network-row";
+    row.innerHTML = `
+      <div>
+        <strong>${n.name}</strong>
+        <p>${n.note}</p>
+        <div class="network-row-actions">
+          <a class="button button-tertiary" href="${n.signupUrl}" target="_blank" rel="noreferrer">Official signup</a>
+          <a class="button button-secondary" href="${n.catalogUrl}" target="_blank" rel="noreferrer">Catalog</a>
+        </div>
+      </div>
+      <div class="network-fields">
+        <label>Rate %<input type="number" min="0" max="100" step="0.1" value="${(n.rate * 100).toFixed(1)}" data-dog-rate="${n.id}"></label>
+        <label>Approval status
+          <select data-dog-approval="${n.id}">
+            <option value="not-applied" ${n.approval === "not-applied" ? "selected" : ""}>Not applied</option>
+            <option value="pending" ${n.approval === "pending" ? "selected" : ""}>Pending</option>
+            <option value="approved" ${n.approval === "approved" ? "selected" : ""}>Approved</option>
+          </select>
+        </label>
+        <label>Affiliate or destination URL
+          <input class="network-link-input" type="url" placeholder="Paste approved affiliate link" value="${n.affiliateUrl || ""}" data-dog-affiliate="${n.id}">
+        </label>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll("[data-dog-rate]").forEach((input) => {
+    input.addEventListener("input", (e) => {
+      const n = networks.find((x) => x.id === e.currentTarget.dataset.dogRate);
+      const v = Number(e.currentTarget.value) / 100;
+      if (!n || Number.isNaN(v)) return;
+      n.rate = Math.max(0, v);
+      saveDogNetworks(networks);
+      rerender();
+    });
+  });
+
+  container.querySelectorAll("[data-dog-approval]").forEach((select) => {
+    select.addEventListener("change", (e) => {
+      const n = networks.find((x) => x.id === e.currentTarget.dataset.dogApproval);
+      if (!n) return;
+      n.approval = e.currentTarget.value;
+      n.status = approvalLabel(e.currentTarget.value);
+      saveDogNetworks(networks);
+      rerender();
+    });
+  });
+
+  container.querySelectorAll("[data-dog-affiliate]").forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const n = networks.find((x) => x.id === e.currentTarget.dataset.dogAffiliate);
+      if (!n) return;
+      n.affiliateUrl = e.currentTarget.value.trim();
+      saveDogNetworks(networks);
+      rerender();
+    });
+  });
+}
+
+function renderDogNetworkCards(networks) {
+  const container = document.querySelector("#dog-network-cards");
+  if (!container) return;
+  container.innerHTML = networks.map((n) => `
+    <article class="network-card">
+      <span class="pill">${n.region}</span>
+      <h3>${n.name}</h3>
+      <p>${n.note}</p>
+      <div class="meta-row">
+        <span class="meta-chip">Rate ${(n.rate * 100).toFixed(1)}%</span>
+        <span class="meta-chip ${statusClass(n.approval)}">${n.status}</span>
+      </div>
+      <div class="meta-row">
+        <a class="text-link" href="${n.signupUrl}" target="_blank" rel="noreferrer">Signup</a>
+        <a class="text-link" href="${n.catalogUrl}" target="_blank" rel="noreferrer">Catalog</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderDogApprovalSummary(networks) {
+  const container = document.querySelector("#dog-approval-summary");
+  if (!container) return;
+  const approved = networks.filter((n) => n.approval === "approved");
+  const pending = networks.filter((n) => n.approval === "pending");
+  const ready = networks.filter((n) => n.approval === "approved" && n.affiliateUrl);
+  container.innerHTML = `
+    <div class="summary-card">
+      <span class="stat-label">Approved networks</span>
+      <strong>${approved.length} / ${networks.length}</strong>
+    </div>
+    <div class="summary-card">
+      <span class="stat-label">Pending applications</span>
+      <strong>${pending.length}</strong>
+    </div>
+    <div class="summary-card">
+      <span class="stat-label">Live affiliate links</span>
+      <strong>${ready.length}</strong>
+    </div>
+  `;
+}
+
+function buildDogSelectOptions(select, values, allLabel) {
+  select.innerHTML = "";
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = allLabel;
+  select.appendChild(all);
+  values.forEach((v) => {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    select.appendChild(opt);
+  });
+}
+
+function renderDogProducts(products, networkMap) {
+  const container = document.querySelector("#dog-parts-grid");
+  if (!container) return;
+  if (products.length === 0) {
+    container.innerHTML = `<div class="empty-state"><p>No products match your filters.</p></div>`;
+    return;
+  }
+  container.innerHTML = products.map((p) => {
+    const payout = dogPayout(p, networkMap);
+    const url = dogDestUrl(p, networkMap);
+    const cta = dogCtaLabel(p, networkMap);
+    return `
+      <article class="part-card">
+        <header>
+          <div>
+            <span class="pill">${p.category}</span>
+            <h3>${p.name}</h3>
+          </div>
+          ${p.badge ? `<span class="badge badge-dog">${p.badge}</span>` : ""}
+        </header>
+        <p class="part-fitment">${p.fitment}</p>
+        <div class="part-meta">
+          <span class="part-price">${dogCurrency(p.price)}</span>
+          <span class="part-source">${p.source}</span>
+        </div>
+        <p class="part-payout">Est. payout: <strong>${dogCurrency(payout)}</strong></p>
+        <a class="button button-dogs-primary" href="${url}" target="${url === "#" ? "_self" : "_blank"}" rel="noreferrer">${cta}</a>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderDogStats(products, networks, networkMap) {
+  const categories = [...new Set(products.map((p) => p.category))];
+  const payouts = products.map((p) => dogPayout(p, networkMap));
+  const topPayout = payouts.length ? Math.max(...payouts) : 0;
+  const approved = networks.filter((n) => n.approval === "approved").length;
+
+  const listingCount = document.querySelector("#dog-listing-count");
+  const categoryCount = document.querySelector("#dog-category-count");
+  const topPayoutEl = document.querySelector("#dog-top-payout");
+  const approvedCount = document.querySelector("#dog-approved-count");
+
+  if (listingCount) listingCount.textContent = products.length;
+  if (categoryCount) categoryCount.textContent = categories.length;
+  if (topPayoutEl) topPayoutEl.textContent = dogCurrency(topPayout);
+  if (approvedCount) approvedCount.textContent = approved;
+}
+
+// ── Main ──
+(function init() {
+  const networks = loadDogNetworks();
+  const networkMap = getDogNetworkMap(networks);
+
+  // Populate filters
+  const sources = [...new Set(DOG_PRODUCTS.map((p) => p.source))].sort();
+  const categories = [...new Set(DOG_PRODUCTS.map((p) => p.category))].sort();
+
+  const searchInput = document.querySelector("#dog-search");
+  const sourceFilter = document.querySelector("#dog-source-filter");
+  const categoryFilter = document.querySelector("#dog-category-filter");
+  const sortFilter = document.querySelector("#dog-sort-filter");
+
+  if (sourceFilter) buildDogSelectOptions(sourceFilter, sources, "All sources");
+  if (categoryFilter) buildDogSelectOptions(categoryFilter, categories, "All categories");
+
+  function getFiltered() {
+    const search = searchInput?.value.toLowerCase() || "";
+    const source = sourceFilter?.value || "all";
+    const category = categoryFilter?.value || "all";
+    const sort = sortFilter?.value || "featured";
+
+    let results = DOG_PRODUCTS.filter((p) => {
+      if (search && !p.name.toLowerCase().includes(search) && !p.fitment.toLowerCase().includes(search)) return false;
+      if (source !== "all" && p.source !== source) return false;
+      if (category !== "all" && p.category !== category) return false;
+      return true;
+    });
+
+    const nm = getDogNetworkMap(loadDogNetworks());
+    if (sort === "price-asc") results = [...results].sort((a, b) => a.price - b.price);
+    else if (sort === "price-desc") results = [...results].sort((a, b) => b.price - a.price);
+    else if (sort === "payout-desc") results = [...results].sort((a, b) => dogPayout(b, nm) - dogPayout(a, nm));
+    else results = [...results].sort((a, b) => a.featured - b.featured);
+
+    return results;
+  }
+
+  function rerender() {
+    const nets = loadDogNetworks();
+    const nm = getDogNetworkMap(nets);
+    renderDogNetworkCards(nets);
+    renderDogNetworkEditor(nets, rerender);
+    renderDogApprovalSummary(nets);
+    renderDogProducts(getFiltered(), nm);
+    renderDogStats(DOG_PRODUCTS, nets, nm);
+  }
+
+  // Event listeners
+  [searchInput, sourceFilter, categoryFilter, sortFilter].forEach((el) => {
+    if (el) el.addEventListener("input", rerender);
+  });
+
+  const toggle = document.querySelector("#dog-admin-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      setDogAdmin(!dogAdminEnabled());
+      renderDogAdminVisibility();
+    });
+  }
+
+  // Initial render
+  renderDogAdminVisibility();
+  rerender();
+})();
