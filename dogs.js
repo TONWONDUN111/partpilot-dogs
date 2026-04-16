@@ -551,9 +551,9 @@ function faviconUrl(domain) {
   return `https://www.google.com/s2/favicons?sz=256&domain_url=https://${domain}`;
 }
 
-function productIllustration(primary, secondary, emoji, start, end) {
+function productIllustration(emoji, category, badge, start, end) {
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-label="${escapeHtml(primary)}">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-label="${escapeHtml(category)}">
       <defs>
         <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
           <stop offset="0%" stop-color="${start}" />
@@ -563,9 +563,14 @@ function productIllustration(primary, secondary, emoji, start, end) {
       <rect width="600" height="360" rx="36" fill="url(#g)" />
       <circle cx="502" cy="84" r="92" fill="rgba(255,255,255,0.12)" />
       <circle cx="122" cy="298" r="120" fill="rgba(255,255,255,0.08)" />
-      <text x="58" y="168" font-size="110">${emoji}</text>
-      <text x="58" y="248" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="700">${escapeHtml(primary)}</text>
-      <text x="58" y="290" fill="rgba(255,255,255,0.86)" font-family="Arial, sans-serif" font-size="24">${escapeHtml(secondary)}</text>
+      <rect x="72" y="82" width="456" height="196" rx="28" fill="rgba(255,255,255,0.14)" />
+      <circle cx="202" cy="182" r="64" fill="rgba(255,255,255,0.16)" />
+      <rect x="288" y="132" width="154" height="96" rx="24" fill="rgba(255,255,255,0.15)" />
+      <text x="146" y="214" font-size="96">${emoji}</text>
+      <rect x="82" y="286" width="146" height="36" rx="18" fill="rgba(255,255,255,0.16)" />
+      <text x="104" y="311" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700">${escapeHtml(category)}</text>
+      <rect x="244" y="286" width="214" height="36" rx="18" fill="rgba(255,255,255,0.12)" />
+      <text x="266" y="311" fill="rgba(255,255,255,0.9)" font-family="Arial, sans-serif" font-size="18">${escapeHtml(badge)}</text>
     </svg>`;
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
@@ -582,9 +587,13 @@ function dogBrandName(product) {
   return match?.name || product.category;
 }
 
+function dogBrandInfo(product) {
+  return DOG_BRANDS.find((brand) => product.name.toLowerCase().includes(brand.query.toLowerCase())) || null;
+}
+
 function dogArtwork(product) {
   const emoji = DOG_CATEGORY_ICONS[product.category] || "🐶";
-  return productIllustration(product.category, dogBrandName(product), emoji, "#168aad", "#0a4f64");
+  return productIllustration(emoji, product.category, product.badge, "#168aad", "#0a4f64");
 }
 
 function approvalLabel(value) {
@@ -860,6 +869,9 @@ function renderDogProducts(products, networkMap, hasActiveSearch) {
       <article class="part-card">
         <div class="card-media">
           <img src="${dogArtwork(p)}" alt="${dogBrandName(p)} ${p.category} product tile">
+          <span class="media-badge">
+            <img src="${dogBrandLogo(dogBrandInfo(p))}" alt="${dogBrandName(p)} logo" onerror="this.onerror=null;this.src='${brandImage(dogBrandName(p), p.category, "#168aad", "#5bb8d6")}';">
+          </span>
         </div>
         <header>
           <div>
