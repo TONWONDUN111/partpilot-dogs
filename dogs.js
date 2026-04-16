@@ -52,6 +52,27 @@ const DEFAULT_DOG_NETWORKS = [
   },
 ];
 
+const DOG_BRANDS = [
+  { name: "KONG", query: "KONG", line: "Toys and chewers", domain: "kongcompany.com" },
+  { name: "Blue Buffalo", query: "Blue Buffalo", line: "Food and treats", domain: "bluebuffalo.com" },
+  { name: "Ruffwear", query: "Ruffwear", line: "Harnesses and jackets", domain: "ruffwear.com" },
+  { name: "FURminator", query: "FURminator", line: "Grooming tools", domain: "furminator.com" },
+  { name: "PetSafe", query: "PetSafe", line: "Training gear", domain: "petsafe.com" },
+  { name: "Royal Canin", query: "Royal Canin", line: "Breed nutrition", domain: "royalcanin.com" },
+  { name: "Hurtta", query: "Hurtta", line: "Outdoor apparel", domain: "hurtta.com" },
+  { name: "Frontline", query: "Frontline", line: "Health support", domain: "frontline.com" },
+];
+
+const DOG_CATEGORY_ICONS = {
+  Toys: "🦴",
+  Food: "🥣",
+  Apparel: "🧥",
+  Beds: "🛏️",
+  Grooming: "✂️",
+  Training: "🦮",
+  Health: "💊",
+};
+
 const DOG_PRODUCTS = [
   // TOYS
   {
@@ -499,6 +520,73 @@ function dogCurrency(value) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function brandImage(label, sublabel, start, end) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-label="${escapeHtml(label)}">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="${start}" />
+          <stop offset="100%" stop-color="${end}" />
+        </linearGradient>
+      </defs>
+      <rect width="600" height="360" rx="36" fill="url(#g)" />
+      <circle cx="500" cy="86" r="94" fill="rgba(255,255,255,0.11)" />
+      <circle cx="128" cy="292" r="120" fill="rgba(255,255,255,0.08)" />
+      <text x="44" y="166" fill="#ffffff" font-family="Arial, sans-serif" font-size="56" font-weight="700">${escapeHtml(label)}</text>
+      <text x="46" y="222" fill="rgba(255,255,255,0.86)" font-family="Arial, sans-serif" font-size="26">${escapeHtml(sublabel)}</text>
+    </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function faviconUrl(domain) {
+  return `https://www.google.com/s2/favicons?sz=256&domain_url=https://${domain}`;
+}
+
+function productIllustration(primary, secondary, emoji, start, end) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-label="${escapeHtml(primary)}">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="${start}" />
+          <stop offset="100%" stop-color="${end}" />
+        </linearGradient>
+      </defs>
+      <rect width="600" height="360" rx="36" fill="url(#g)" />
+      <circle cx="502" cy="84" r="92" fill="rgba(255,255,255,0.12)" />
+      <circle cx="122" cy="298" r="120" fill="rgba(255,255,255,0.08)" />
+      <text x="58" y="168" font-size="110">${emoji}</text>
+      <text x="58" y="248" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="700">${escapeHtml(primary)}</text>
+      <text x="58" y="290" fill="rgba(255,255,255,0.86)" font-family="Arial, sans-serif" font-size="24">${escapeHtml(secondary)}</text>
+    </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function dogBrandLogo(brand) {
+  if (brand?.domain) {
+    return faviconUrl(brand.domain);
+  }
+  return brandImage(brand?.name || "Brand", brand?.line || "", "#168aad", "#5bb8d6");
+}
+
+function dogBrandName(product) {
+  const match = DOG_BRANDS.find((brand) => product.name.toLowerCase().includes(brand.query.toLowerCase()));
+  return match?.name || product.category;
+}
+
+function dogArtwork(product) {
+  const emoji = DOG_CATEGORY_ICONS[product.category] || "🐶";
+  return productIllustration(product.category, dogBrandName(product), emoji, "#168aad", "#0a4f64");
+}
+
 function approvalLabel(value) {
   if (value === "approved") return "Approved";
   if (value === "pending") return "Pending";
@@ -711,6 +799,29 @@ function renderDogApprovalSummary(networks) {
   `;
 }
 
+function renderDogBrandGrid() {
+  const container = document.querySelector("#dog-brand-grid");
+  const searchInput = document.querySelector("#dog-search");
+  if (!container || !searchInput) return;
+
+  container.innerHTML = DOG_BRANDS.map((brand) => `
+    <button class="logo-card" type="button" data-dog-brand="${brand.query}">
+      <img src="${dogBrandLogo(brand)}" alt="${brand.name} brand logo" onerror="this.onerror=null;this.src='${brandImage(brand.name, brand.line, "#168aad", "#5bb8d6")}';">
+      <strong>${brand.name}</strong>
+      <span>${brand.line}</span>
+    </button>
+  `).join("");
+
+  container.querySelectorAll("[data-dog-brand]").forEach((button) => {
+    button.addEventListener("click", () => {
+      searchInput.value = button.dataset.dogBrand || "";
+      container.querySelectorAll(".logo-card").forEach((card) => card.classList.remove("is-active"));
+      button.classList.add("is-active");
+      searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+}
+
 function buildDogSelectOptions(select, values, allLabel) {
   select.innerHTML = "";
   const all = document.createElement("option");
@@ -725,9 +836,18 @@ function buildDogSelectOptions(select, values, allLabel) {
   });
 }
 
-function renderDogProducts(products, networkMap) {
+function renderDogProducts(products, networkMap, hasActiveSearch) {
   const container = document.querySelector("#dog-parts-grid");
   if (!container) return;
+  if (!hasActiveSearch) {
+    container.innerHTML = `
+      <div class="search-empty">
+        <h3>Start with a dog brand or category</h3>
+        <p>Use the brand tiles or search box to reveal matching products. This keeps the storefront visual and clean before the shopper starts browsing.</p>
+      </div>
+    `;
+    return;
+  }
   if (products.length === 0) {
     container.innerHTML = `<div class="empty-state"><p>No products match your filters.</p></div>`;
     return;
@@ -738,6 +858,9 @@ function renderDogProducts(products, networkMap) {
     const cta = dogCtaLabel(p, networkMap);
     return `
       <article class="part-card">
+        <div class="card-media">
+          <img src="${dogArtwork(p)}" alt="${dogBrandName(p)} ${p.category} product tile">
+        </div>
         <header>
           <div>
             <span class="pill">${p.category}</span>
@@ -854,6 +977,7 @@ async function renderPetVideosPreview() {
 
   if (sourceFilter) buildDogSelectOptions(sourceFilter, sources, "All sources");
   if (categoryFilter) buildDogSelectOptions(categoryFilter, categories, "All categories");
+  renderDogBrandGrid();
 
   function getFiltered() {
     const search = searchInput?.value.toLowerCase() || "";
@@ -880,10 +1004,15 @@ async function renderPetVideosPreview() {
   function rerender() {
     const nets = loadDogNetworks();
     const nm = getDogNetworkMap(nets);
+    const hasActiveSearch = Boolean(
+      (searchInput?.value || "").trim() ||
+      (sourceFilter?.value || "all") !== "all" ||
+      (categoryFilter?.value || "all") !== "all"
+    );
     renderDogNetworkCards(nets);
     renderDogNetworkEditor(nets, rerender);
     renderDogApprovalSummary(nets);
-    renderDogProducts(getFiltered(), nm);
+    renderDogProducts(getFiltered(), nm, hasActiveSearch);
     renderDogStats(DOG_PRODUCTS, nets, nm);
   }
 

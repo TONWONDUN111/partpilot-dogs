@@ -19,6 +19,11 @@
   border-color: rgba(22, 138, 173, 0.18);
 }
 
+[data-page="dogs"] .dog-logo-panel {
+  background: linear-gradient(135deg, rgba(236, 251, 255, 0.9), rgba(223, 243, 250, 0.82));
+  border-color: rgba(22, 138, 173, 0.18);
+}
+
 /* Primary button – dog green */
 .button-dogs-primary {
   background: #168aad;
@@ -42,6 +47,16 @@
 .button-active {
   background: #b72525 !important;
   color: #fff !important;
+}
+
+[data-page="dogs"] .logo-card:hover,
+[data-page="dogs"] .logo-card:focus-visible,
+[data-page="dogs"] .logo-card.is-active {
+  border-color: rgba(22, 138, 173, 0.4);
+}
+
+[data-page="dogs"] .search-empty {
+  border-color: rgba(22, 138, 173, 0.3);
 }
 
 /* Badge color for dogs */
