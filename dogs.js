@@ -748,7 +748,7 @@ function renderDogProducts(products, networkMap) {
         <p class="part-fitment">${p.fitment}</p>
         <div class="part-meta">
           <span class="part-price">${dogCurrency(p.price)}</span>
-          <span class="part-source">${p.source}</span>
+          <a class="part-source text-link" href="${url}" target="${url === "#" ? "_self" : "_blank"}" rel="noreferrer">Retailer: ${networkMap[p.networkId]?.name || p.source}</a>
         </div>
         <p class="part-payout">Est. payout: <strong>${dogCurrency(payout)}</strong></p>
         <a class="button button-dogs-primary" href="${url}" target="${url === "#" ? "_self" : "_blank"}" rel="noreferrer">${cta}</a>
