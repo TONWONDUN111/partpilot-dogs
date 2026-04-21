@@ -1,5 +1,12 @@
 [
   {
+    "title": "Cute Puppy Moments",
+    "category": "Cute",
+    "published": "2026-04-21",
+    "summary": "Fresh curated picks from trending pet clips.",
+    "watchUrl": "https://www.youtube.com/results?search_query=cute+puppy+moments"
+  },
+  {
     "title": "Dog Training Transformation Videos",
     "category": "Dog",
     "published": "2026-04-21",
@@ -19,13 +26,6 @@
     "published": "2026-04-20",
     "summary": "Fresh curated picks from trending pet clips.",
     "watchUrl": "https://www.youtube.com/results?search_query=senior+dog+recovery+stories"
-  },
-  {
-    "title": "Cute Puppy Moments",
-    "category": "Cute",
-    "published": "2026-04-20",
-    "summary": "Fresh curated picks from trending pet clips.",
-    "watchUrl": "https://www.youtube.com/results?search_query=cute+puppy+moments"
   },
   {
     "title": "Funny Pet Videos",
