@@ -1,5 +1,12 @@
 [
   {
+    "title": "Sad Pet Rescue Stories",
+    "category": "Sad",
+    "published": "2026-04-20",
+    "summary": "Fresh curated picks from trending pet clips.",
+    "watchUrl": "https://www.youtube.com/results?search_query=sad+pet+rescue+stories"
+  },
+  {
     "title": "Senior Dog Recovery Stories",
     "category": "Senior",
     "published": "2026-04-20",
@@ -26,12 +33,5 @@
     "published": "2026-04-19",
     "summary": "Fresh curated picks from trending pet clips.",
     "watchUrl": "https://www.youtube.com/results?search_query=funny+pet+videos"
-  },
-  {
-    "title": "Sad Pet Rescue Stories",
-    "category": "Sad",
-    "published": "2026-04-19",
-    "summary": "Fresh curated picks from trending pet clips.",
-    "watchUrl": "https://www.youtube.com/results?search_query=sad+pet+rescue+stories"
   }
 ]
